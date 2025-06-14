@@ -121,7 +121,13 @@ public class EditarPedidoTest {
     public void shouldHideFormWhenDeleteOrderAfterEditing() {
         EditarPedidoPage page = new EditarPedidoPage(driver);
         page.clicarEditarPrimeiroPedido();
+
+        ((JavascriptExecutor) driver).executeScript("window.confirm = function(){ return true; };");
         page.clicarExluir();
+
+        Alert alert = new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.alertIsPresent());
+        alert.accept();
 
         assertFalse(page.formularioEstaVisivel());
     }
