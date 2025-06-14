@@ -21,6 +21,11 @@ public class EditarPedidoTest {
         driver = new ChromeDriver();
         faker = new Faker();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.get("https://tc1-pedi.vercel.app/editar.html");
+
+        ((JavascriptExecutor) driver).executeScript("localStorage.clear();");
+        cadastrarPedidoJs();
+        driver.navigate().refresh();
     }
 
     @AfterEach
@@ -55,16 +60,38 @@ public class EditarPedidoTest {
         page.clicarEditarPrimeiroPedido();
 
         page.preencherNome(faker.name().fullName());
-        page.preencherCpf("12345");
+        page.preencherCpf("123");
         page.preencherTelefone(faker.phoneNumber().cellPhone());
         page.preencherEmail(faker.internet().emailAddress());
         page.preencherEndereco(faker.address().streetAddress());
         page.selecionarPizza(0, "Pizza Pepperoni");
+
         page.clicarSalvar();
 
-        Alert alert = new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.alertIsPresent());
-        assertTrue(alert.getText().contains("CPF inválido"));
-        alert.accept();
+        String validationMessage = (String) ((JavascriptExecutor) driver)
+                .executeScript("return document.getElementById('edit-cpf').validationMessage;");
+
+        assertEquals("É preciso que o formato corresponda ao exigido.", validationMessage);
+    }
+
+    private void cadastrarPedidoJs() {
+        String nome = faker.name().fullName();
+        String cpf = "12345678900";
+        String telefone = faker.phoneNumber().cellPhone();
+        String email = faker.internet().emailAddress();
+        String endereco = faker.address().streetAddress();
+
+        String script = """
+        localStorage.setItem("pedidos", JSON.stringify([{
+            fullName: "%s",
+            cpf: "%s",
+            phone: "%s",
+            email: "%s",
+            address: "%s",
+            pizzas: ["pepperoni"]
+        }]));
+        """.formatted(nome, cpf, telefone, email, endereco);
+
+        ((JavascriptExecutor) driver).executeScript(script);
     }
 }
