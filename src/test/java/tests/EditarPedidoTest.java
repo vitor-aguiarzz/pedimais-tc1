@@ -162,6 +162,17 @@ public class EditarPedidoTest {
         alert.accept();
     }
 
+    @Test
+    @DisplayName("should hide form when click cancel button")
+    public void shouldHideFormWhenClickCancelButton() {
+        EditarPedidoPage page = new EditarPedidoPage(driver);
+        page.clicarEditarPrimeiroPedido();
+
+        page.clicarCancelar();
+
+        assertFalse(page.formularioEstaVisivel());
+    }
+
     private void cadastrarPedidoJs() {
         String nome = faker.name().fullName();
         String cpf = "16493614082";
