@@ -66,8 +66,6 @@ public class EditarPedidoTest {
         page.preencherEndereco(faker.address().streetAddress());
         page.selecionarPizza(0, "Pizza Pepperoni");
 
-        page.clicarSalvar();
-
         String validationMessage = (String) ((JavascriptExecutor) driver)
                 .executeScript("return document.getElementById('edit-cpf').validationMessage;");
 
@@ -86,8 +84,6 @@ public class EditarPedidoTest {
         page.preencherEmail(faker.internet().emailAddress());
         page.preencherEndereco(faker.address().streetAddress());
         page.selecionarPizza(0, "Pizza Pepperoni");
-
-        page.clicarSalvar();
 
         String validationMessage = (String) ((JavascriptExecutor) driver)
                 .executeScript("return document.getElementById('edit-fullName').validationMessage;");
@@ -108,7 +104,6 @@ public class EditarPedidoTest {
         page.preencherEndereco(faker.address().streetAddress());
         page.selecionarPizza(0, "Pizza Pepperoni");
 
-        page.clicarSalvar();
 
         String validationMessage = (String) ((JavascriptExecutor) driver)
                 .executeScript("return document.getElementById('edit-email').validationMessage;");
