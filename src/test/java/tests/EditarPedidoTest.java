@@ -95,6 +95,26 @@ public class EditarPedidoTest {
         assertEquals("Preencha este campo.", validationMessage);
     }
 
+    @Test
+    @DisplayName("Should not edit order with invalid email")
+    public void shouldNotEditOrderWithInvalidEmail() {
+        EditarPedidoPage page = new EditarPedidoPage(driver);
+        page.clicarEditarPrimeiroPedido();
+
+        page.preencherNome(faker.name().fullName());
+        page.preencherCpf("12345678900");
+        page.preencherTelefone(faker.phoneNumber().cellPhone());
+        page.preencherEmail("email-invalido"); // sem @ e domínio
+        page.preencherEndereco(faker.address().streetAddress());
+        page.selecionarPizza(0, "Pizza Pepperoni");
+
+        page.clicarSalvar();
+
+        String validationMessage = (String) ((JavascriptExecutor) driver)
+                .executeScript("return document.getElementById('edit-email').validationMessage;");
+
+        assertTrue(validationMessage.toLowerCase().contains("email"));
+    }
 
     private void cadastrarPedidoJs() {
         String nome = faker.name().fullName();
