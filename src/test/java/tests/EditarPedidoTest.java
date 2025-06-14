@@ -74,6 +74,28 @@ public class EditarPedidoTest {
         assertEquals("É preciso que o formato corresponda ao exigido.", validationMessage);
     }
 
+    @Test
+    @DisplayName("Should not edit order with empty name")
+    public void shouldNotEditOrderWithEmptyName() {
+        EditarPedidoPage page = new EditarPedidoPage(driver);
+        page.clicarEditarPrimeiroPedido();
+
+        page.preencherNome("");
+        page.preencherCpf("12345678900");
+        page.preencherTelefone(faker.phoneNumber().cellPhone());
+        page.preencherEmail(faker.internet().emailAddress());
+        page.preencherEndereco(faker.address().streetAddress());
+        page.selecionarPizza(0, "Pizza Pepperoni");
+
+        page.clicarSalvar();
+
+        String validationMessage = (String) ((JavascriptExecutor) driver)
+                .executeScript("return document.getElementById('edit-fullName').validationMessage;");
+
+        assertEquals("Preencha este campo.", validationMessage);
+    }
+
+
     private void cadastrarPedidoJs() {
         String nome = faker.name().fullName();
         String cpf = "12345678900";
