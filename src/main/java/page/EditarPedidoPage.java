@@ -17,6 +17,7 @@ public class EditarPedidoPage {
     private By botaoCancelar = By.id("cancel-edit-btn");
     private By listaPizzas = By.cssSelector("#edit-pizzas-container select");
     private By botaoEditarPedido = By.cssSelector(".edit-btn");
+    private By botaoExcluirPedido = By.cssSelector("delete-btn");
 
     public EditarPedidoPage(WebDriver driver) {
         this.driver = driver;
@@ -70,6 +71,10 @@ public class EditarPedidoPage {
 
     public void clicarCancelar() {
         driver.findElement(botaoCancelar).click();
+    }
+
+    public void clicarExluir() {
+        driver.findElement(botaoExcluirPedido).click();
     }
 
     public boolean formularioEstaVisivel() {

@@ -116,6 +116,16 @@ public class EditarPedidoTest {
         assertTrue(validationMessage.toLowerCase().contains("email"));
     }
 
+    @Test
+    @DisplayName("Should hide form when delete order after editing")
+    public void shouldHideFormWhenDeleteOrderAfterEditing() {
+        EditarPedidoPage page = new EditarPedidoPage(driver);
+        page.clicarEditarPrimeiroPedido();
+        page.clicarExluir();
+
+        assertFalse(page.formularioEstaVisivel());
+    }
+
     private void cadastrarPedidoJs() {
         String nome = faker.name().fullName();
         String cpf = "16493614082";
