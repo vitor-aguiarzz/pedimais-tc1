@@ -40,7 +40,7 @@ public class EditarPedidoTest {
         page.clicarEditarPrimeiroPedido();
 
         page.preencherNome(faker.name().fullName());
-        page.preencherCpf("12345678900");
+        page.preencherCpf("16493614082");
         page.preencherTelefone(faker.phoneNumber().cellPhone());
         page.preencherEmail(faker.internet().emailAddress());
         page.preencherEndereco(faker.address().streetAddress());
@@ -60,7 +60,7 @@ public class EditarPedidoTest {
         page.clicarEditarPrimeiroPedido();
 
         page.preencherNome(faker.name().fullName());
-        page.preencherCpf("123");
+        page.preencherCpf("11111111111"); // Tem 11 dígitos mas não é válido
         page.preencherTelefone(faker.phoneNumber().cellPhone());
         page.preencherEmail(faker.internet().emailAddress());
         page.preencherEndereco(faker.address().streetAddress());
@@ -81,7 +81,7 @@ public class EditarPedidoTest {
         page.clicarEditarPrimeiroPedido();
 
         page.preencherNome("");
-        page.preencherCpf("12345678900");
+        page.preencherCpf("16493614082");
         page.preencherTelefone(faker.phoneNumber().cellPhone());
         page.preencherEmail(faker.internet().emailAddress());
         page.preencherEndereco(faker.address().streetAddress());
@@ -102,9 +102,9 @@ public class EditarPedidoTest {
         page.clicarEditarPrimeiroPedido();
 
         page.preencherNome(faker.name().fullName());
-        page.preencherCpf("12345678900");
+        page.preencherCpf("16493614082");
         page.preencherTelefone(faker.phoneNumber().cellPhone());
-        page.preencherEmail("email-invalido"); // sem @ e domínio
+        page.preencherEmail("emailinvalido@a"); // sem domínio
         page.preencherEndereco(faker.address().streetAddress());
         page.selecionarPizza(0, "Pizza Pepperoni");
 
@@ -118,7 +118,7 @@ public class EditarPedidoTest {
 
     private void cadastrarPedidoJs() {
         String nome = faker.name().fullName();
-        String cpf = "12345678900";
+        String cpf = "16493614082";
         String telefone = faker.phoneNumber().cellPhone();
         String email = faker.internet().emailAddress();
         String endereco = faker.address().streetAddress();
