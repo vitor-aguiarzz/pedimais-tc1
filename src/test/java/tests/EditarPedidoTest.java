@@ -132,6 +132,22 @@ public class EditarPedidoTest {
         assertFalse(page.formularioEstaVisivel());
     }
 
+    @Test
+    @DisplayName("Should delete order successfully")
+    public void shouldDeleteOrderSuccessfully() {
+        EditarPedidoPage page = new EditarPedidoPage(driver);
+
+        ((JavascriptExecutor) driver).executeScript("window.confirm = function(){ return true; };");
+
+        page.clicarExluir();
+
+        Alert alert = new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.alertIsPresent());
+
+        assertEquals("Pedido excluído com sucesso.", alert.getText());
+        alert.accept();
+    }
+
     private void cadastrarPedidoJs() {
         String nome = faker.name().fullName();
         String cpf = "16493614082";
