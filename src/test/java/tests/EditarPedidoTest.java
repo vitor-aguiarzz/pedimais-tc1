@@ -117,6 +117,25 @@ public class EditarPedidoTest {
     }
 
     @Test
+    @DisplayName("should not edit order with invalid phone")
+    public void shouldNotEditOrderWithInvalidPhone() {
+        EditarPedidoPage page = new EditarPedidoPage(driver);
+        page.clicarEditarPrimeiroPedido();
+
+        page.preencherNome(faker.name().fullName());
+        page.preencherCpf("16493614082");
+        page.preencherTelefone("123"); // Telefone inválido
+        page.preencherEmail(faker.internet().emailAddress());
+        page.preencherEndereco(faker.address().streetAddress());
+        page.selecionarPizza(0, "Pizza Calabresa");
+
+        String validationMessage = (String) ((JavascriptExecutor) driver)
+                .executeScript("const el = document.getElementById('edit-phone'); el.reportValidity(); return el.validationMessage;");
+
+        assertEquals("É preciso que o formato corresponda ao exigido.", validationMessage);
+    }
+
+    @Test
     @DisplayName("Should hide form when delete order after editing")
     public void shouldHideFormWhenDeleteOrderAfterEditing() {
         EditarPedidoPage page = new EditarPedidoPage(driver);
