@@ -92,6 +92,25 @@ public class EditarPedidoTest {
     }
 
     @Test
+    @DisplayName("Should not edit order with empty address")
+    public void shouldNotEditOrderWithEmptyAddress() {
+        EditarPedidoPage page = new EditarPedidoPage(driver);
+        page.clicarEditarPrimeiroPedido();
+
+        page.preencherNome(faker.name().fullName());
+        page.preencherCpf("16493614082");
+        page.preencherTelefone(faker.phoneNumber().cellPhone());
+        page.preencherEmail(faker.internet().emailAddress());
+        page.preencherEndereco("");
+        page.selecionarPizza(0, "Pizza Pepperoni");
+
+        String validationMessage = (String) ((JavascriptExecutor) driver)
+                .executeScript("return document.getElementById('edit-address').validationMessage;");
+
+        assertEquals("Preencha este campo.", validationMessage);
+    }
+
+    @Test
     @DisplayName("Should not edit order with invalid email")
     public void shouldNotEditOrderWithInvalidEmail() {
         EditarPedidoPage page = new EditarPedidoPage(driver);
