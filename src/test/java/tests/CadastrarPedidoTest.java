@@ -135,4 +135,21 @@ public class CadastrarPedidoTest {
         assertFalse(cadastrarPedidoPage.campoCpfEhValido());
     }
 
+    @Test
+    @DisplayName("Não deve cadastrar pedido quando telefone contém letras")
+    public void naoDeveCadastrarPedidoQuandoTelefoneContemLetras() {
+        cadastrarPedidoPage.preencherNome(faker.name().fullName());
+        cadastrarPedidoPage.preencherCpf("16493614082");
+        cadastrarPedidoPage.preencherTelefone("AAAA");
+        cadastrarPedidoPage.preencherEmail(faker.internet().emailAddress());
+        cadastrarPedidoPage.preencherEndereco(faker.address().streetAddress());
+        cadastrarPedidoPage.clicaComboBoxPizza();
+        cadastrarPedidoPage.selecionaPizzaPeperoni();
+        cadastrarPedidoPage.cadastrarPedido();
+
+        Alert alert = new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.alertIsPresent());
+        assertNotEquals("Pedido cadastrado com sucesso!", alert.getText());
+    }
+
 }
