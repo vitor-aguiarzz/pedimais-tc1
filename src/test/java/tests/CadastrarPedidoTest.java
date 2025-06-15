@@ -55,4 +55,25 @@ public class CadastrarPedidoTest {
         alert.accept();
     }
 
+    @Test
+    @DisplayName("Deve adicionar uma segunda pizza ao pedido com sucesso")
+    public void deveAdicionarSegundaPizzaAoPedido() {
+        cadastrarPedidoPage.preencherNome(faker.name().fullName());
+        cadastrarPedidoPage.preencherCpf("16493614082");
+        cadastrarPedidoPage.preencherTelefone(faker.phoneNumber().cellPhone());
+        cadastrarPedidoPage.preencherEmail(faker.internet().emailAddress());
+        cadastrarPedidoPage.preencherEndereco(faker.address().streetAddress());
+        cadastrarPedidoPage.adicionarNovaPizza();
+        cadastrarPedidoPage.clicaComboBoxPizza();
+        cadastrarPedidoPage.selecionaPizzaPeperoni();
+        cadastrarPedidoPage.clicaSegundaComboBoxPizza();
+        cadastrarPedidoPage.selecionaPizzaDaNona();
+        cadastrarPedidoPage.cadastrarPedido();
+
+        Alert alert = new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.alertIsPresent());
+        assertEquals("Pedido cadastrado com sucesso!", alert.getText());
+        alert.accept();
+    }
+
 }
