@@ -200,4 +200,27 @@ public class CadastrarPedidoTest {
 
         assertFalse(cadastrarPedidoPage.campoEmailEhValido());
     }
+
+    @Test
+    @DisplayName("Deve remover a segunda pizza do pedido corretamente")
+    public void deveRemoverSegundaPizzaDoPedido() {
+        cadastrarPedidoPage.preencherNome(faker.name().fullName());
+        cadastrarPedidoPage.preencherCpf("16493614082");
+        cadastrarPedidoPage.preencherTelefone(faker.phoneNumber().cellPhone());
+        cadastrarPedidoPage.preencherEmail(faker.internet().emailAddress());
+        cadastrarPedidoPage.preencherEndereco(faker.address().streetAddress());
+
+        cadastrarPedidoPage.clicaComboBoxPizza();
+        cadastrarPedidoPage.selecionaPizzaPeperoni();
+
+        cadastrarPedidoPage.adicionarNovaPizza();
+        cadastrarPedidoPage.clicaSegundaComboBoxPizza();
+        cadastrarPedidoPage.selecionaPizzaDaNona();
+
+        assertEquals(2, cadastrarPedidoPage.quantidadeDeCombosDePizza());
+
+        cadastrarPedidoPage.clicaBotaoRemoverSegundaPizza();
+
+        assertEquals(1, cadastrarPedidoPage.quantidadeDeCombosDePizza());
+    }
 }
