@@ -186,5 +186,18 @@ public class CadastrarPedidoTest {
         assertNotEquals("Pedido cadastrado com sucesso!", alert.getText());
     }
 
+    @Test
+    @DisplayName("Não deve validar email quando o formato é inválido")
+    public void naoDeveValidarEmailQuandoFormatoInvalido() {
+        cadastrarPedidoPage.preencherNome(faker.name().fullName());
+        cadastrarPedidoPage.preencherCpf("16493614082");
+        cadastrarPedidoPage.preencherTelefone(faker.phoneNumber().cellPhone());
+        cadastrarPedidoPage.preencherEmail("emailinvalido");
+        cadastrarPedidoPage.preencherEndereco(faker.address().streetAddress());
+        cadastrarPedidoPage.clicaComboBoxPizza();
+        cadastrarPedidoPage.selecionaPizzaPeperoni();
+        cadastrarPedidoPage.cadastrarPedido();
 
+        assertFalse(cadastrarPedidoPage.campoEmailEhValido());
+    }
 }
