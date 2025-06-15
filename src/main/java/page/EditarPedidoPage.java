@@ -84,4 +84,11 @@ public class EditarPedidoPage {
     public int quantidadeDePizzasSelecionaveis() {
         return driver.findElements(listaPizzas).size();
     }
+
+    public void removerUltimaPizza() {
+        List<WebElement> botoesRemover = driver.findElements(By.cssSelector(".remove-pizza-btn"));
+        if (!botoesRemover.isEmpty()) {
+            botoesRemover.get(botoesRemover.size() - 1).click();
+        }
+    }
 }

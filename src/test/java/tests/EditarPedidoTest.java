@@ -131,7 +131,7 @@ public class EditarPedidoTest {
     }
 
     @Test
-    @DisplayName("should not edit order with invalid phone")
+    @DisplayName("Should not edit order with invalid phone")
     public void shouldNotEditOrderWithInvalidPhone() {
         EditarPedidoPage page = new EditarPedidoPage(driver);
         page.clicarEditarPrimeiroPedido();
@@ -182,7 +182,7 @@ public class EditarPedidoTest {
     }
 
     @Test
-    @DisplayName("should hide form when click cancel button")
+    @DisplayName("Should hide form when click cancel button")
     public void shouldHideFormWhenClickCancelButton() {
         EditarPedidoPage page = new EditarPedidoPage(driver);
         page.clicarEditarPrimeiroPedido();
@@ -193,7 +193,7 @@ public class EditarPedidoTest {
     }
 
     @Test
-    @DisplayName("should add new pizza select when click add pizza button")
+    @DisplayName("Should add new pizza select when click add pizza button")
     public void shouldAddNewPizzaSelectWhenClickAddPizzaButton() {
         EditarPedidoPage page = new EditarPedidoPage(driver);
         page.clicarEditarPrimeiroPedido();
@@ -203,6 +203,21 @@ public class EditarPedidoTest {
         int quantidadeDepois = page.quantidadeDePizzasSelecionaveis();
 
         assertEquals(quantidadeAntes + 1, quantidadeDepois);
+    }
+
+    @Test
+    @DisplayName("Should remove pizza select when click remove pizza button")
+    public void shouldRemovePizzaSelectWhenClickRemovePizzaButton() {
+        EditarPedidoPage page = new EditarPedidoPage(driver);
+        page.clicarEditarPrimeiroPedido();
+
+        page.adicionarNovaPizza();
+        int quantidadeAntes = page.quantidadeDePizzasSelecionaveis();
+        
+        page.removerUltimaPizza();
+        int quantidadeDepois = page.quantidadeDePizzasSelecionaveis();
+
+        assertEquals(quantidadeAntes - 1, quantidadeDepois);
     }
 
     private void cadastrarPedidoJs() {
