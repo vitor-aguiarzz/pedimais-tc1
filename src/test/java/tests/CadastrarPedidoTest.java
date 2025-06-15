@@ -93,4 +93,18 @@ public class CadastrarPedidoTest {
         assertNotEquals("Pedido cadastrado com sucesso!", alert.getText());
     }
 
+    @Test
+    @DisplayName("Não deve validar CPF quando contém letras")
+    public void naoDeveValidarCpfQuandoContemLetras() {
+        cadastrarPedidoPage.preencherNome(faker.name().fullName());
+        cadastrarPedidoPage.preencherCpf("ABCDEFGHIJK");
+        cadastrarPedidoPage.preencherTelefone(faker.phoneNumber().cellPhone());
+        cadastrarPedidoPage.preencherEmail(faker.internet().emailAddress());
+        cadastrarPedidoPage.preencherEndereco(faker.address().streetAddress());
+        cadastrarPedidoPage.clicaComboBoxPizza();
+        cadastrarPedidoPage.selecionaPizzaPeperoni();
+
+        assertFalse(cadastrarPedidoPage.campoCpfEhValido());
+    }
+
 }
