@@ -80,4 +80,8 @@ public class EditarPedidoPage {
     public boolean formularioEstaVisivel() {
         return driver.findElement(form).isDisplayed();
     }
+
+    public int quantidadeDePizzasSelecionaveis() {
+        return driver.findElements(listaPizzas).size();
+    }
 }

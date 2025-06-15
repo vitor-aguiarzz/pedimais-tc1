@@ -192,6 +192,19 @@ public class EditarPedidoTest {
         assertFalse(page.formularioEstaVisivel());
     }
 
+    @Test
+    @DisplayName("should add new pizza select when click add pizza button")
+    public void shouldAddNewPizzaSelectWhenClickAddPizzaButton() {
+        EditarPedidoPage page = new EditarPedidoPage(driver);
+        page.clicarEditarPrimeiroPedido();
+
+        int quantidadeAntes = page.quantidadeDePizzasSelecionaveis();
+        page.adicionarNovaPizza();
+        int quantidadeDepois = page.quantidadeDePizzasSelecionaveis();
+
+        assertEquals(quantidadeAntes + 1, quantidadeDepois);
+    }
+
     private void cadastrarPedidoJs() {
         String nome = faker.name().fullName();
         String cpf = "16493614082";
