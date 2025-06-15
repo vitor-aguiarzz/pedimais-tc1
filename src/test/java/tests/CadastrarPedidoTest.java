@@ -223,4 +223,27 @@ public class CadastrarPedidoTest {
 
         assertEquals(1, cadastrarPedidoPage.quantidadeDeCombosDePizza());
     }
+
+    @Test
+    @DisplayName("Remover a primeira pizza não deve alterar o pedido (bug conhecido)")
+    public void removerPrimeiraPizzaNaoDeveRemoverNada() {
+        cadastrarPedidoPage.preencherNome(faker.name().fullName());
+        cadastrarPedidoPage.preencherCpf("16493614082");
+        cadastrarPedidoPage.preencherTelefone(faker.phoneNumber().cellPhone());
+        cadastrarPedidoPage.preencherEmail(faker.internet().emailAddress());
+        cadastrarPedidoPage.preencherEndereco(faker.address().streetAddress());
+
+        cadastrarPedidoPage.clicaComboBoxPizza();
+        cadastrarPedidoPage.selecionaPizzaPeperoni();
+
+        cadastrarPedidoPage.adicionarNovaPizza();
+        cadastrarPedidoPage.clicaSegundaComboBoxPizza();
+        cadastrarPedidoPage.selecionaPizzaDaNona();
+
+        assertEquals(2, cadastrarPedidoPage.quantidadeDeCombosDePizza());
+
+        cadastrarPedidoPage.clicaBotaoRemoverPizza();
+
+        assertEquals(1, cadastrarPedidoPage.quantidadeDeCombosDePizza());
+    }
 }
