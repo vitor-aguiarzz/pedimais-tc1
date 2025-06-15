@@ -107,4 +107,18 @@ public class CadastrarPedidoTest {
         assertFalse(cadastrarPedidoPage.campoCpfEhValido());
     }
 
+    @Test
+    @DisplayName("Não deve validar CPF quando contém menos de 11 dígitos")
+    public void naoDeveValidarCpfQuandoMenosDeOnzeDigitos() {
+        cadastrarPedidoPage.preencherNome(faker.name().fullName());
+        cadastrarPedidoPage.preencherCpf("123456");
+        cadastrarPedidoPage.preencherTelefone(faker.phoneNumber().cellPhone());
+        cadastrarPedidoPage.preencherEmail(faker.internet().emailAddress());
+        cadastrarPedidoPage.preencherEndereco(faker.address().streetAddress());
+        cadastrarPedidoPage.clicaComboBoxPizza();
+        cadastrarPedidoPage.selecionaPizzaPeperoni();
+
+        assertFalse(cadastrarPedidoPage.campoCpfEhValido());
+    }
+
 }
